@@ -1,18 +1,32 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <sort-drop-down />
+    <motel-card :newList="allMotelData" />
   </div>
+
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import MotelCard from '@/components/MotelCard.vue';
+import SortDropDown from '@/components/SortDropDown.vue';
+import { mapActions,mapState } from "vuex";
 
 export default {
-  name: "HomeView",
+  name: "main",
+
   components: {
-    HelloWorld,
+    MotelCard,
+    SortDropDown,
   },
+  methods:{
+    ...mapActions(['getMotelData'])
+  },
+  computed:{
+    ...mapState(['allMotelData'])
+  },
+  created(){
+    this.getMotelData()
+  }
 };
 </script>
