@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: "/moteladd",
-    name: "MotelEkle",
+    name: "moteladd",
     component: MotelAddView,
   },
   {

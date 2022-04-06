@@ -1,8 +1,8 @@
 <template>
   <div>
       <v-row class="align-center justify-center">
-        <v-col cols="4" class="align-center justify-center mt-5">
-          <v-btn class="motelAddButon mx-1" color="primary" elevation="2" outlined
+        <v-col cols="4" class="align-center justify-center mt-5" >
+          <v-btn class="motelAddButon mx-1" @click="motelAddRoute()" color="primary" elevation="2" outlined
             ><v-icon>mdi-plus </v-icon></v-btn
           >
           <span class="motel-add-text"> OTEL EKLE </span>
@@ -187,9 +187,30 @@ export default {
       this.$store.dispatch("upgradeMotelRating", { index: index });
       this.initPage();
     },
-    SortSelect() {
-      this.sortSelectArrow = !this.sortSelectArrow;
+    motelAddRoute(){
+      this.$router.push({name:"moteladd"})
     },
+    SortSelect() {
+      if (this.selectedPlace == "Puan (Artan)"){
+        this.testList.sort(function(a, b) {
+          return new Date(b.rating) - new Date(a.rating) ;
+        });
+      }else {
+        this.testList.sort(function(a, b) {
+          return new Date(a.rating) - new Date(b.rating) ;
+        });
+      }
+      this.initPage()
+    },
+    createPageSort(){
+      if(this.historyList){
+        this.testList.sort(function(a, b) {
+          return new Date(b.registerDate) - new Date(a.registerDate) ;
+        });
+        this.initPage()
+      }
+    },
+
     initPage() {
       this.listCount = this.testList.length;
       if (this.listCount < this.pageSize) {
@@ -209,6 +230,7 @@ export default {
   created() {
     this.initPage();
     this.updatePage(this.page);
+    this.createPageSort();
   },
   computed: {
     pages() {
