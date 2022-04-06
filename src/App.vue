@@ -2,6 +2,7 @@
   <v-app>
     <v-app-bar app class="app-nav-bar" >
       <div class="d-flex align-center">
+        <router-link to="/">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
@@ -10,10 +11,11 @@
           transition="scale-transition"
           width="150"
           height="64"
+          href="/"
         />
+        </router-link>
       </div>
 
-      <v-spacer></v-spacer>
     </v-app-bar>
 
     <v-main>

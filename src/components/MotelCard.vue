@@ -185,6 +185,7 @@ export default {
     },
     DeleteMotel(index) {
       this.$store.dispatch("upgradeMotelRating", { index: index });
+      console.log("1",index)
       this.initPage();
     },
     motelAddRoute(){
@@ -192,12 +193,13 @@ export default {
     },
     SortSelect() {
       if (this.selectedPlace == "Puan (Artan)"){
-        this.testList.sort(function(a, b) {
-          return new Date(b.rating) - new Date(a.rating) ;
+        let newData = this.testList.sort(function(a, b) {
+          return new Date(a.rating) - new Date(b.rating) ;
         });
+        console.log(newData)
       }else {
         this.testList.sort(function(a, b) {
-          return new Date(a.rating) - new Date(b.rating) ;
+          return new Date(b.rating) - new Date(a.rating) ;
         });
       }
       this.initPage()
@@ -207,8 +209,9 @@ export default {
         this.testList.sort(function(a, b) {
           return new Date(b.registerDate) - new Date(a.registerDate) ;
         });
-        this.initPage()
+        this.initPage();
       }
+
     },
 
     initPage() {
@@ -262,9 +265,9 @@ export default {
 }
 
 .close-button-dialog {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: absolute !important;
+  top: 0 !important;
+  right: -0rem !important;
 }
 
 .close-button-area {

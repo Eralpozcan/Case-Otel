@@ -37,7 +37,10 @@ export default new Vuex.Store({
       localStorage.setItem('motelData',JSON.stringify(state.allMotelData))
     },
     deleteMotelData(state,payload){
+      console.log("payload",payload)
       state.allMotelData.splice(payload.index,1)
+      console.table('Deleted data', state.allMotelData)
+      console.log("delete index", payload.index)
       localStorage.setItem('motelData',JSON.stringify(state.allMotelData))
     }
   },

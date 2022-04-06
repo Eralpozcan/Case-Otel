@@ -82,7 +82,7 @@ export default {
         this.motelName = ''
         this.rating = ''
         this.registered = false
-      }, 5000);
+      }, 3000);
     },
   },
   created(){
