@@ -184,9 +184,9 @@ export default {
       });
     },
     DeleteMotel(index) {
-      this.$store.dispatch("upgradeMotelRating", { index: index });
-      console.log("1",index)
+      this.$store.dispatch("deleteMotelData", { index: index });
       this.initPage();
+      this.modalStatus = false
     },
     motelAddRoute(){
       this.$router.push({name:"moteladd"})
