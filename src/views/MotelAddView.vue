@@ -1,15 +1,12 @@
 <template>
-    <motel-add />
+  <motel-add />
 </template>
 
 <script>
-import MotelAdd from '@/components/MotelAdd.vue'
+import MotelAdd from "@/components/MotelAdd.vue";
 export default {
   components: { MotelAdd },
-
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

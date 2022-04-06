@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     valid: false,
@@ -61,33 +61,36 @@ export default {
     ],
   }),
   methods: {
-    ...mapActions(['getMotelData']),
+    ...mapActions(["getMotelData"]),
     motelRegister() {
-      if(this.registered == false){
+      if (this.registered == false) {
         this.registered = true;
         var currentDate = new Date();
-        var formatted_date = currentDate.toJSON().slice(0, 10).replace(/-/g, "/");
+        var formatted_date = currentDate
+          .toJSON()
+          .slice(0, 10)
+          .replace(/-/g, "/");
         let motelData = {
           motelName: String(this.motelName),
           rating: Number(this.rating),
-          setHover:false,
+          setHover: false,
           registerDate: currentDate,
           registerDate_formated: formatted_date,
         };
-        this.$store.dispatch("addMotelData",motelData);
+        this.$store.dispatch("addMotelData", motelData);
       }
       setTimeout(() => {
         // Sayfayı yeniliyoruz herhangi bir yönlendirmemiz olmadığı için. Tekrar veri girebilmek için
         //this.$router.go(0);
-        this.motelName = ''
-        this.rating = ''
-        this.registered = false
+        this.motelName = "";
+        this.rating = "";
+        this.registered = false;
       }, 3000);
     },
   },
-  created(){
-    this.getMotelData()
-  }
+  created() {
+    this.getMotelData();
+  },
 };
 </script>
 

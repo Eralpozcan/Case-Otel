@@ -8,7 +8,7 @@ import MotelCard from "@/components/MotelCard.vue";
 import { mapActions, mapState } from "vuex";
 
 export default {
-  name: "main",
+  name: "Home",
   components: {
     MotelCard,
   },

@@ -1,140 +1,142 @@
 <template>
   <div>
-      <v-row class="align-center justify-center">
-        <v-col cols="4" class="align-center justify-center mt-5" >
-          <v-btn class="motelAddButon mx-1" @click="motelAddRoute()" color="primary" elevation="2" outlined
-            ><v-icon>mdi-plus </v-icon></v-btn
+    <v-row class="align-center justify-center">
+      <v-col cols="4" class="align-center justify-center mt-5">
+        <v-btn
+          class="motelAddButon mx-1"
+          @click="motelAddRoute()"
+          color="primary"
+          elevation="2"
+          outlined
+          ><v-icon>mdi-plus </v-icon></v-btn
+        >
+        <span class="motel-add-text"> OTEL EKLE </span>
+        <v-select
+          class="mt-5"
+          v-model="selectedPlace"
+          :items="selectedValues"
+          menu-props="auto"
+          label="Sıralama"
+          dense
+          solo
+          prepend-inner-icon="mdi-swap-vertical"
+          @change="SortSelect()"
+        ></v-select>
+        <v-card
+          class="mx-auto mb-4"
+          elevation="9"
+          outlined
+          min-height="200"
+          min-width="200"
+          v-for="(item, index) in historyList"
+          :key="index"
+        >
+          <div
+            class="close-button-area"
+            @mouseenter="ChangeIn(index)"
+            @mouseleave="ChangeOut(index)"
           >
-          <span class="motel-add-text"> OTEL EKLE </span>
-          <v-select
-            class="mt-5"
-            v-model="selectedPlace"
-            :items="selectedValues"
-            menu-props="auto"
-            label="Sıralama"
-            dense
-            solo
-            prepend-inner-icon="mdi-swap-vertical"
-            @change="SortSelect()"
-          ></v-select>
-          <v-card
-            class="mx-auto mb-4"
-            elevation="9"
-            outlined
-            min-height="200"
-            min-width="200"
-            v-for="(item, index) in historyList"
-            :key="index"
-          >
-            <div
-              class="close-button-area"
-              @mouseenter="ChangeIn(index)"
-              @mouseleave="ChangeOut(index)"
+            <v-icon
+              class="close-button"
+              v-show="item.setHover"
+              color="red"
+              @click="OpenModal(index)"
+              >mdi-close-circle</v-icon
             >
-              <v-icon
-                class="close-button"
-                v-show="item.setHover"
-                color="red"
-                @click="OpenModal(index)"
-                >mdi-close-circle</v-icon
+          </div>
+
+          <v-row class="d-flex justify-center mx-auto my-auto">
+            <v-col cols="5">
+              <v-img
+                class="white--text align-center round-class justify-center"
+                height="100%"
+                width="100%"
+                src="https://picsum.photos/500/500"
               >
-            </div>
-
-            <v-row class="d-flex justify-center mx-auto my-auto">
-              <v-col cols="5">
-                <v-img
-                  class="white--text align-center round-class justify-center"
-                  height="100%"
-                  width="100%"
-                  src="https://picsum.photos/500/500"
-                >
-                </v-img>
-              </v-col>
-              <v-col cols="7" class="mx-auto justify-center">
-                <div
-                  class="font-weight-bold text-xl-h5 text-lg-h6 text-start mx-2"
-                >
-                  {{ item.motelName }}
-                </div>
-                <div
-                  class="text-xl-h6 text-lg-h7 text-start mx-2"
-                  style="color: #0dc5bb"
-                >
-                  {{ item.rating }} Puan
-                </div>
-
-                <v-row class="d-flex justify-center">
-                  <v-col class="justify-center">
-                    <v-btn
-                      class="mx-1 my-1 font-family-class text-center"
-                      color="blue"
-                      depressed
-                      elevation="2"
-                      outlined
-                      raised
-                      @click="MotelPointIncrease(index)"
-                    >
-                      PUAN ARTIR
-                    </v-btn>
-
-                    <v-btn
-                      class="mx-1 my-1 font-family-class"
-                      color="blue"
-                      depressed
-                      elevation="2"
-                      outlined
-                      raised
-                      @click="MotelPointDecrease(index)"
-                    >
-                      PUAN AZALT
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </v-card>
-          <v-dialog
-            class="modal"
-            v-model="modalStatus"
-            persistent
-            max-width="300"
-            max-height="500"
-          >
-            <v-card>
-              <v-spacer></v-spacer>
-              <v-btn
-                class="close-button-dialog"
-                icon
-                @click="modalStatus = false"
+              </v-img>
+            </v-col>
+            <v-col cols="7" class="mx-auto justify-center">
+              <div
+                class="font-weight-bold text-xl-h5 text-lg-h6 text-start mx-2"
               >
-                <v-icon>mdi-close</v-icon>
+                {{ item.motelName }}
+              </div>
+              <div
+                class="text-xl-h6 text-lg-h7 text-start mx-2"
+                style="color: #0dc5bb"
+              >
+                {{ item.rating }} Puan
+              </div>
+
+              <v-row class="d-flex justify-center">
+                <v-col class="justify-center">
+                  <v-btn
+                    class="mx-1 my-1 font-family-class text-center"
+                    color="blue"
+                    depressed
+                    elevation="2"
+                    outlined
+                    raised
+                    @click="MotelPointIncrease(index)"
+                  >
+                    PUAN ARTIR
+                  </v-btn>
+
+                  <v-btn
+                    class="mx-1 my-1 font-family-class"
+                    color="blue"
+                    depressed
+                    elevation="2"
+                    outlined
+                    raised
+                    @click="MotelPointDecrease(index)"
+                  >
+                    PUAN AZALT
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-dialog
+          class="modal"
+          v-model="modalStatus"
+          persistent
+          max-width="300"
+          max-height="500"
+        >
+          <v-card>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="close-button-dialog"
+              icon
+              @click="modalStatus = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-card-title class="text-h5"> Oteli Sil </v-card-title>
+            <v-card-text
+              >{{ modalData.motelName }}’i silmek istediğinizden emin
+              misiniz?</v-card-text
+            >
+            <v-card-actions class="justify-center">
+              <v-btn color="primary" @click="DeleteMotel(modalData.list_index)">
+                Oteli Sil
               </v-btn>
-              <v-card-title class="text-h5"> Oteli Sil </v-card-title>
-              <v-card-text
-                >{{ modalData.motelName }}’i silmek istediğinizden emin
-                misiniz?</v-card-text
-              >
-              <v-card-actions class="justify-center">
-                <v-btn
-                  color="primary"
-                  @click="DeleteMotel(modalData.list_index)"
-                >
-                  Oteli Sil
-                </v-btn>
-                <v-btn color="primary" outlined @click="modalStatus = false">
-                  Vazgeç
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-pagination
-            class="pagination mb-2"
-            v-model="page"
-            :length="pages"
-            @input="updatePage"
-          ></v-pagination>
-        </v-col>
-      </v-row>
+              <v-btn color="primary" outlined @click="modalStatus = false">
+                Vazgeç
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-pagination
+          class="pagination mb-2"
+          v-model="page"
+          :length="pages"
+          @input="updatePage"
+        ></v-pagination>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -186,32 +188,31 @@ export default {
     DeleteMotel(index) {
       this.$store.dispatch("deleteMotelData", { index: index });
       this.initPage();
-      this.modalStatus = false
+      this.modalStatus = false;
     },
-    motelAddRoute(){
-      this.$router.push({name:"moteladd"})
+    motelAddRoute() {
+      this.$router.push({ name: "moteladd" });
     },
     SortSelect() {
-      if (this.selectedPlace == "Puan (Artan)"){
-        let newData = this.testList.sort(function(a, b) {
-          return new Date(a.rating) - new Date(b.rating) ;
+      if (this.selectedPlace == "Puan (Artan)") {
+        let newData = this.testList.sort(function (a, b) {
+          return new Date(a.rating) - new Date(b.rating);
         });
-        console.log(newData)
-      }else {
-        this.testList.sort(function(a, b) {
-          return new Date(b.rating) - new Date(a.rating) ;
+        console.log(newData);
+      } else {
+        this.testList.sort(function (a, b) {
+          return new Date(b.rating) - new Date(a.rating);
         });
       }
-      this.initPage()
+      this.initPage();
     },
-    createPageSort(){
-      if(this.historyList){
-        this.testList.sort(function(a, b) {
-          return new Date(b.registerDate) - new Date(a.registerDate) ;
+    createPageSort() {
+      if (this.historyList) {
+        this.testList.sort(function (a, b) {
+          return new Date(b.registerDate) - new Date(a.registerDate);
         });
         this.initPage();
       }
-
     },
 
     initPage() {

@@ -5,60 +5,63 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    allMotelData:[],
-
+    allMotelData: [],
   },
   getters: {},
   mutations: {
-    setMotelData(state,payload){
-      console.table(JSON.parse(payload))
-      state.allMotelData = JSON.parse(payload)
+    setMotelData(state, payload) {
+      state.allMotelData = JSON.parse(payload);
     },
-    newMotelData(state,payload){
-      state.allMotelData.push(payload)
-      localStorage.setItem('motelData',JSON.stringify(state.allMotelData))
+    newMotelData(state, payload) {
+      state.allMotelData.push(payload);
+      localStorage.setItem("motelData", JSON.stringify(state.allMotelData));
     },
-    updateMotelRating(state,payload){
+    updateMotelRating(state, payload) {
       if (payload.quantityRate < 0) {
-        if (state.allMotelData[payload.index].rating - Math.abs(payload.quantityRate) >= 1) {
-          state.allMotelData[payload.index].rating = Number((state.allMotelData[payload.index].rating - Math.abs(payload.quantityRate)).toFixed(1))
+        if (
+          state.allMotelData[payload.index].rating -
+            Math.abs(payload.quantityRate) >=
+          1
+        ) {
+          state.allMotelData[payload.index].rating = Number(
+            (
+              state.allMotelData[payload.index].rating -
+              Math.abs(payload.quantityRate)
+            ).toFixed(1)
+          );
         }
-        // }else if (state.allMotelData[payload.index].rating - (Math.abs(payload.quantityRate)/10) >= 0) {
-        //   state.allMotelData[payload.index].rating = Number((state.allMotelData[payload.index].rating - Math.abs(payload.quantityRate/10)).toFixed(1))
-        // }
-      }else {
-        if (state.allMotelData[payload.index].rating + payload.quantityRate < 10) {
-          state.allMotelData[payload.index].rating = Number(state.allMotelData[payload.index].rating + payload.quantityRate)
+      } else {
+        if (
+          state.allMotelData[payload.index].rating + payload.quantityRate <
+          10
+        ) {
+          state.allMotelData[payload.index].rating = Number(
+            state.allMotelData[payload.index].rating + payload.quantityRate
+          );
         }
-        // else if(state.allMotelData[payload.index].rating + (payload.quantityRate/10) <= 10) {
-        //   state.allMotelData[payload.index].rating = Number((state.allMotelData[payload.index].rating + (payload.quantityRate/10)).toFixed(1))
-        // }
       }
-      localStorage.setItem('motelData',JSON.stringify(state.allMotelData))
+      localStorage.setItem("motelData", JSON.stringify(state.allMotelData));
     },
-    deleteMotelData(state,payload){
-      console.log("payload",payload)
-      state.allMotelData.splice(payload.index,1)
-      console.table('Deleted data', state.allMotelData)
-      console.log("delete index", payload.index)
-      localStorage.setItem('motelData',JSON.stringify(state.allMotelData))
-    }
+    deleteMotelData(state, payload) {
+      state.allMotelData.splice(payload.index, 1);
+      localStorage.setItem("motelData", JSON.stringify(state.allMotelData));
+    },
   },
   actions: {
-    getMotelData({commit}){
-      if(localStorage.getItem('motelData')){
-        commit('setMotelData',localStorage.getItem('motelData'));
+    getMotelData({ commit }) {
+      if (localStorage.getItem("motelData")) {
+        commit("setMotelData", localStorage.getItem("motelData"));
       }
     },
-    addMotelData({commit},motelData){
-      commit('newMotelData',motelData)
+    addMotelData({ commit }, motelData) {
+      commit("newMotelData", motelData);
     },
-    upgradeMotelRating({commit},newData){
-      commit('updateMotelRating',newData)
+    upgradeMotelRating({ commit }, newData) {
+      commit("updateMotelRating", newData);
     },
-    deleteMotelData({commit},data){
-      commit('deleteMotelData',data)
-    }
+    deleteMotelData({ commit }, data) {
+      commit("deleteMotelData", data);
+    },
   },
   modules: {},
 });
