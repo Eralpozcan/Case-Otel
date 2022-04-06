@@ -1,6 +1,3 @@
-# Hotel.IQ
-
-
 <h1 align="center">Hotel.IQ</h1>
 
 <p align="center"> Hotel.IQ </p>
@@ -54,7 +51,4 @@ npm run build
 ### Run your unit tests
 ```
 npm run test:unit
-```
-
-
 ```
